@@ -1,0 +1,15 @@
+.border{
+    /* border:2px solid red; */
+    margin:3px;
+}
+.flex{display:flex;}
+.justify-center{
+    justify-content:center;
+}
+.rounded{
+    border-radius: 10%;
+    overflow: hidden;
+}
+.invert{
+    filter:invert(1)
+}

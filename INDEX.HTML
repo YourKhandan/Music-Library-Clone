@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="utility.css">
+</head>
+<style></style>
+<body>
+    <div class="container flex">
+        <!-- the container is divided into 20% left and 80% right -->
+        <div class="left">
+            <div class="close">
+        <img  src="close.svg" alt="close">
+    </div>
+            <div class="home rounded">
+
+                <img class="logo style-scope ytmusic-logo" alt="" src="//music.youtube.com/img/on_platform_logo_dark.svg">
+                <div class="logo" style="filter: invert(1);">
+                    <ul style="list-style-type: none;">
+                        <li>
+                            
+                            <img src="home.svg" alt="Home" srcset="">Home
+                        </li>
+                        <li>
+                            
+                            
+                            <img src="search.svg" alt="Search" srcset="">Search
+                        </li>
+                        <li>
+                            
+                            <img src="library.svg" alt="Library" srcset="">Library
+                        </li>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="LikedMusic" style="filter: invert(1);">
+            <div>Liked Music</div>
+            <div class="songlist">
+                <!-- songlist has song-info which has all songs -->
+                <ul>
+                <li>
+                </li>
+                </ul>
+            </div>
+            <div>
+                </div>
+            </div>
+    </div>
+        <div class="RightSide">
+
+            <div class="header">
+                <div class="nav">
+                   <div class="hamburger">
+                       <img src="menu.svg" alt="menu" srcset="">
+                    </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="white" >
+                            <path opacity="0.4" d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="white" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" />
+</svg>
+                </div>
+                <div class="buttons">
+                    <button class="Signupbtn">Sign Up</button>
+                    <button class="Loginbtn">Login</button>
+                </div>
+            </div>
+            <div class="playlist">
+                <h1>
+
+                    Your Playlists
+                </h1>
+                <div class="cardContainer">
+                    <div class="card">
+                        <div class="play">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="56" height="" color="white" fill="white" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M18.8906 12.846C18.5371 14.189 16.8667 15.138 13.5257 17.0361C10.296 18.8709 8.6812 19.7884 7.37983 19.4196C6.8418 19.2671 6.35159 18.9776 5.95624 18.5787C5 17.6139 5 15.7426 5 12C5 8.2574 5 6.3861 5.95624 5.42132C6.35159 5.02245 6.8418 4.73288 7.37983 4.58042C8.6812 4.21165 10.296 5.12907 13.5257 6.96393C16.8667 8.86197 18.5371 9.811 18.8906 11.154C19.0365 11.7084 19.0365 12.2916 18.8906 12.846Z"/>
+</svg>
+                        </div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqj6coVyxEMgbPvUtGT7jTikQanTSHZPbV6VISoLx-kQ9h5IShaFj15R2ZhUg_MhTKbbGTOA&s" alt="">
+                        <h2>Happy Hits</h2>
+                        <p>Hits to Boost</p>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="player">
+                <div class="seekbar">
+                    <div class="circle">
+                        
+                    </div>
+                </div>
+                <div class="abovebar">
+
+                    <div class="songinfo">
+                        Play Your First Song or Press Play
+                    </div>
+                    <div class="Songbtns">
+                        <img src="previous.svg" alt="prev" srcset="" id="previous">
+                        <img src="play.svg" alt="play" srcset="" id="play">
+                        <img src="next.svg" alt="nxt" srcset="" id="next">
+                    </div>
+                    <div class="volume invert">
+    <img src="Volume-High.svg" alt="Volume" id="Volume" class="invert">
+    <!-- Add this range input -->
+    <input type="range" name="volume" min="0" max="100" value="100">
+</div>
+                    <div class="songtime"> 00:00(songtime)</div>
+                </div>
+                </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

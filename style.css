@@ -1,0 +1,447 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    display:flex;
+    height:100vh;
+    width:100vw;
+    background-color: black;
+    overflow: hidden;
+}
+.home{
+    /* display:flex; */
+    /* justify-content: center; */
+    /* align-items:center; */
+    /* padding: 0;
+    margin: 0; */
+    font-weight: bold;
+    width:100%;
+    background-color: rgb(42, 36, 36);
+    /* border:2px solid rgb(22, 21, 21); */
+    /* height:100vh; */
+    /* filter: invert(1); */
+}
+.RightSide{
+    /* display:flex;
+    justify-content: center;
+    align-items:center; */
+    width:80vw;
+    /* border:2px solid rgb(105, 101, 101); */
+    background-color: rgb(46, 44, 44);
+    position:relative;
+}
+.logo ul{
+    margin:1.5vh;
+}
+.logo ul li{
+    display:flex;
+    gap:1.5vw;
+    height:5vh;
+width:80%;
+
+padding-left: 5%;
+}
+.logo ul img{
+    gap:30px;
+}
+.LikedMusic{
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    /* border:2px solid rgb(48, 43, 43); */
+    width:19vw;
+    background-color: rgb(217, 214, 214);
+    font-size: larger;
+    font-weight: bolder;
+    padding-left:2vh;
+    position:relative;
+    justify-content: space-between;
+    padding-top: 5px;
+    height:95%;
+}
+.LikedMusic a{
+    overflow:hidden;
+    border: radius 30px;
+    border:2px solid yellow;
+    text-decoration: none;
+    color:brown;
+}
+.header{
+    display:flex;
+    justify-content: space-between;
+    background-color: rgb(30, 28, 28);
+    
+}
+.buttons{
+    margin:10px;
+}
+.nav{
+    margin:10px;
+}
+.playlist{
+    color: aliceblue;
+    max-height: 100%;
+    max-width: 100%;
+    /* overflow: scroll; */
+}
+.player{
+    /* border: 2px  solid yellow; */
+    bottom:0;
+    position:absolute;
+    background-color: rgb(31, 34, 31);
+    width:100%;
+    box-sizing: border-box;
+    padding:20px;
+}
+.cardContainer {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 30px;
+    overflow-y: auto;
+    max-height: 80vh;
+
+    /* 1. Firefox: Hide scrollbar by default */
+    scrollbar-width: none; 
+}
+
+/* 2. Firefox: Show on hover */
+.cardContainer:hover {
+    scrollbar-width: thin;
+    scrollbar-color: #555 transparent;
+}
+
+/* 3. Chrome/Edge/Safari: Hide scrollbar track & thumb */
+.cardContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cardContainer::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Invisible by default */
+    border-radius: 10px;
+}
+
+/* 4. Chrome/Edge/Safari: Show thumb on hover */
+.cardContainer:hover::-webkit-scrollbar-thumb {
+    background-color: #242222; /* Solid color appears on hover */
+}
+
+.card{
+
+    /* border:2px solid red; */
+    padding:10px;
+    width:200px;
+    padding-top: 10px;
+    border-radius: 5px;
+    background-color:#252525 ;
+    position:relative;
+}
+.card img{
+    width:100%;
+    object-fit: contain;
+}
+.play{
+    position:absolute;
+    top:145px;
+    right:20px;
+    opacity:0;
+    transition:all 1s ease-out;
+}
+.Signupbtn{
+    background: transparent;
+    color:grey;
+    font-weight: bold;
+    cursor: pointer;
+    border:none;
+    outline:none;
+    margin:5px;
+    font-size: 17px;
+    
+}
+.Signupbtn:hover{
+    font-size: 1.1;
+    color:white;
+}
+.Loginbtn{
+    background: white;
+    color:grey;
+    font-weight: bold;
+    cursor: pointer;
+    border:none;
+    outline:none;
+    padding:5px;
+    border-radius:60px;
+    font-size: 17px;  
+}
+.Loginbtn:hover{
+    font-size: 1.1;
+    color:rgb(19, 18, 18);
+}
+.Songbtns{
+    display:flex;
+    position:relative;
+    justify-content: center;
+    align-items: center;
+    bottom:15px;
+}
+.Songbtns #play{
+
+    cursor:pointer;
+}
+.Songbtns #previous{
+    cursor:pointer;
+}
+.Songbtns #next{
+    cursor:pointer;
+}
+    .songlist {
+    height: 95vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+.songlist ul li {
+    display: flex;
+    justify-content: space-between; /* Pushes play button to the right */
+    align-items: flex-start;      /* Align to top so wrapped text looks good */
+    gap: 10px;
+    padding: 12px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    border-radius: 6px;
+    list-style-type: none;
+}
+
+/* Group Number, Icon, and Text together */
+.song-header {
+    display: flex;
+    gap: 10px;
+    flex: 1; /* This makes the text area expand */
+}
+
+.info {
+    font-size: 13px;
+    word-break: break-word; /* Force wrapping on long filenames */
+    overflow-wrap: anywhere;
+    flex: 1;
+}
+
+.song-name {
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+.song-artist {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+/* Keep the Play button from shrinking */
+/* .playnow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 90px; 
+    font-size: 12px;
+    justify-content: flex-end;
+} */
+
+/* .playnow img {
+    width: 24px;
+} */
+.player{
+    height:90px;
+    width:80%;
+
+}
+.seekbar{
+    border:2px solid rgb(248, 241, 241);
+    height:2px;
+    width:95%;
+    position:absolute;
+    border-radius:10px;
+    bottom:14px;
+    cursor:pointer;
+    
+}
+
+.circle {
+    /* display:none; */
+    position: relative;
+    border: 2px solid rgb(255, 255, 255);
+    background-color:white;
+    width: 14px;
+    height: 14px;
+    border-radius: 13px;
+    bottom: 7.5px;
+    transition:left; 
+    left: 0%;
+    transition: left 0.1s ease, width 0.2s, height 0.2s;
+}
+.seekbar:hover .circle, 
+.circle:active {
+    width: 18px;
+    height: 18px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+.player {
+    position: fixed;
+    bottom: 0;
+    background-color: #121212;
+    padding: 15px;
+    display: flex;
+    flex-direction: column; /* Stack Seekbar on top, Controls below */
+    gap: 15px;
+}
+
+/* This is the magic row for your 3 items */
+
+.abovebar{
+    display:flex;
+    color:white;
+    justify-content: space-between;
+}
+.Songbtns{
+    position: relative;
+    bottom:0;
+    top:0;
+}
+ 
+.songinfo {
+    position:relative;
+      color: white;
+    overflow-x: auto;
+    white-space:nowrap;
+    width: 150px;
+    height: 40px;
+    /* border: 2px solid brown; */
+    width: 30%;
+    /* overflow: auto; 'auto' means it ONLY shows if text is too big */
+    white-space: nowrap;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+}
+
+.songtime {
+    position: relative;
+    color: white;
+}
+@media (max-width: 1000px) {
+    .left {
+        position: absolute;
+        left: -120%; /* Move it completely off-screen */
+        transition: all .3s; /* Smooth sliding effect */
+        z-index: 10; /* Make sure it's above the right side */
+        width: 30%; /* Fixed width for mobile sidebar */
+        background-color: black;
+        display: block !important; /* Override any 'none' */
+    }
+
+    .RightSide {
+        width: 100vw;
+    }
+
+    .hamburger {
+        display: block; /* Show the menu icon only on mobile */
+        cursor: pointer;
+    }
+}
+/* Desktop: Hide the close icon */
+.close {
+    display: none;
+}
+.volume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.volume input {
+    width: 0; /* Hidden by default */
+    opacity: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* When you hover over the volume div, show the bar */
+.volume:hover input {
+    width: 100px; 
+    opacity: 1;
+}
+.volume input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 6px;
+    border-radius: 5px;
+    /* Default background if JS fails */
+    background: red; 
+    cursor: pointer;
+    outline: none;
+}
+
+/* The Circle (The Thumb) */
+.volume input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: white; /* Keeps the circle white so it stands out */
+    cursor: pointer;
+    border: 2px solid red; /* Optional: green/yellow border */
+}
+
+@media (max-width: 1000px) {
+    .left {
+        position: absolute;
+        left: -120%; /* Hidden off-screen */
+        transition: all .3s;
+        z-index: 10;
+        width: 350px;
+        background-color: black;
+        height: 100vh;      /* Force sidebar to take full screen height */
+        position: fixed;    /* Better than absolute: stays put when you scroll the right side */
+        top: 0;             /* Stick to the top */
+        padding: 0;         /* Clear any default padding */
+        width: 85vw;        /* 85% of screen width is standard for mobile menus */
+        max-width: 350px;
+    }
+    .left::-webkit-scrollbar {
+        display: none;
+    }
+    .home{
+        width:100%;
+    }
+    .songlist {
+        height: 60vh;       /* Give it more room on mobile */
+        padding-bottom: 20px; 
+    }
+    .player{
+        width:100%;
+    }
+
+
+    /* Mobile: Show and position the close icon */
+    .close {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+    }
+    
+    .close img {
+        width: 30px;
+    }
+    .LikedMusic{
+        height:80%;
+        width:100%;
+    }
+}
+
