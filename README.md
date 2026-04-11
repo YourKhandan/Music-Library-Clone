@@ -1,2 +1,3 @@
 # Music-Library-Clone
 A clone of music library where one can play songs based on folders inside..(note songs are mp3 formatted...)
+one can add folders containing files of mp3 formats.. and the backend will understand and show on frontend ("Cards") section....
