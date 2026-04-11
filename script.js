@@ -254,7 +254,6 @@ document.querySelector(".hamburger").addEventListener("click", () => {
 document.querySelector(".close").addEventListener("click", () => {
     document.querySelector(".left").style.left = "-120%";
 });
-// This is the "Gold Standard" way to do what you want
 currentSong.addEventListener("ended", () => {
     // 1. Force the song to the beginning
     currentSong.currentTime = 0;
@@ -300,22 +299,7 @@ document.querySelector("#next").addEventListener("click", () => {
         playMusic(songs[0]);
     }
 });
-// Add an event listener to the volume slider
-// document.querySelector(".volume").getElementsByTagName("input")[0].addEventListener("change", (e) => {
-//     console.log("Setting volume to", e.target.value, "/ 100");
-    
-//     let volumeValue = parseInt(e.target.value) / 100;
-//     currentSong.volume = volumeValue;
 
-//     let volumeIcon = document.querySelector("#Volume");
-
-//     // Change icon based on volume level
-//     if (volumeValue === 0) {
-//         volumeIcon.src = "volume-Mute.svg"; 
-//     } else {
-//         volumeIcon.src = "Volume-High.svg";
-//     }
-// });
 document.querySelector(".volume input").addEventListener("input", (e) => {
     let value = e.target.value;
     
