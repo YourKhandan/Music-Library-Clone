@@ -1,4 +1,4 @@
-console.log('lets wirte some js');
+// console.log('lets wirte some js');
 function secondsToMinutesSeconds(seconds){
     if(isNaN(seconds)||(seconds<0)){
         return "invalid"
@@ -16,7 +16,9 @@ let currfolder;
 //GET SONGS FETCHES ALL THE SONGS
 async function getSongs(folder) {
     currfolder=folder;
-    let a = await fetch(`http://127.0.0.1:3000/${folder}/`);
+    let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/`);
+    // console.log(a);
+    
     let response = await a.text();
     
     let div = document.createElement("div");
@@ -72,7 +74,7 @@ const playMusic = (track,pause=false) => {
     // Ensure 'track' has .mp3 if it was missing
     let finalTrack = track.endsWith(".mp3") ? track : track + ".mp3";
     //TRACK HAS THE MP3 SONG NAME
-    currentSong.src = `/${currfolder}/` + finalTrack;
+    currentSong.src = `songs/${currfolder}/` + finalTrack;
 // if(!pause){
 //     currentSong.play()
 //     play.src="pause.svg"
@@ -80,20 +82,83 @@ const playMusic = (track,pause=false) => {
     // 2. Play the song
     currentSong.play().catch(e => {
         console.log("Playback failed. Check if file exists:", e);
+        // console.log(currentSong.src);
+        
     });
     document.querySelector("#play").src="pause.svg"//as soon as track plays do this
     // 3. Update the UI (Optional: Show name in the playbar)
     document.querySelector(".songtime").innerHTML="00:00/00:00"
     //document.querySelector(".songinfo").innerHTML="00:00"
-    document.querySelector(".songinfo").innerHTML = decodeURI(finalTrack)+"SONGINFO";
+    document.querySelector(".songinfo").innerHTML = decodeURI(finalTrack);
 }
 
+async function displayAlbums(){
+    let a=await fetch(`http://127.0.0.1:3000/songs`)
+    let response =await a.text()
+    console.log(response);
+    
+    let div=document.createElement("div")
+    div.innerHTML=response
+    //console.log(div);
+    let anchor=div.getElementsByTagName("a")
+   // console.log(anchor);
+    let folders=[]
+Array.from(anchor).forEach(e => {
+    // 1. Clean the URL: Replace encoded backslashes (%5C) with forward slashes (/)
+    let cleanHref = e.href.replaceAll("%5C", "/");
+    
+    console.log("Checking cleaned link:", cleanHref);
 
+    // 2. Updated condition to match the cleaned path
+    if (cleanHref.includes("/songs/") && !cleanHref.endsWith(".mp3") && !e.innerHTML.includes("..")) {
+        
+        // 3. Split by "/" and get the last non-empty part
+        let parts = cleanHref.split("/").filter(p => p !== "");
+        let folder = parts[parts.length - 1];
+
+        if (folder !== "songs") {
+            console.log("FOUND ALBUM:", folder);
+            folders.push(folder)
+            // Now you can call your function to create cards here
+        }
+    } else {
+        console.log("Ignored:", cleanHref);
+    }
+});
+return folders
+
+}
+const makeCards = (folders) => {
+    let cardContainer = document.querySelector(".cardContainer");
+    
+    // Clear the container so we don't have duplicates
+    cardContainer.innerHTML = "";
+
+    // Loop through each folder name in the array
+    folders.forEach(folder => {
+        // Build the card
+        cardContainer.innerHTML += `
+            <div class="card" data-folder="${folder}">
+                <div class="play">
+                    <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="56" height="" color="white" fill="white" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                        <path d="M18.8906 12.846C18.5371 14.189 16.8667 15.138 13.5257 17.0361C10.296 18.8709 8.6812 19.7884 7.37983 19.4196C6.8418 19.2671 6.35159 18.9776 5.95624 18.5787C5 17.6139 5 15.7426 5 12C5 8.2574 5 6.3861 5.95624 5.42132C6.35159 5.02245 6.8418 4.73288 7.37983 4.58042C8.6812 4.21165 10.296 5.12907 13.5257 6.96393C16.8667 8.86197 18.5371 9.811 18.8906 11.154C19.0365 11.7084 19.0365 12.2916 18.8906 12.846Z""")/>>
+                    </svg>
+                </div>
+                <img src="https://picsum.photos{folder}/200/200" alt="">
+                <h2>${folder.replaceAll("%20", " ")}</h2>
+            </div>`;
+    });
+
+    // Re-attach the click listeners so the new cards actually work
+    attachAlbumClickListeners();
+}
 
 async function main() {
     
-    let songs = await getSongs(`songs/ncs`);
-    
+    // let songs = await getSongs(`ncs`);
+    let myFolders = await displayAlbums();
+console.log("My folders array:", myFolders); // This will now show the data
+ makeCards(myFolders);
     // Select your song list container
     let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0];
     
@@ -133,6 +198,22 @@ async function main() {
     })
 }
 main()
+const attachAlbumClickListeners = () => {
+    Array.from(document.getElementsByClassName("card")).forEach(e => {
+        e.addEventListener("click", async item => {
+            let folder = item.currentTarget.dataset.folder;
+            console.log("Switching to album:", folder);
+            
+            // Fetch and update the song list for this folder
+            songs = await getSongs(folder); 
+            updateSonglist(songs);
+            
+            // Automatically play the first song of the new album if you want:
+            // playMusic(songs[0]); 
+        });
+    });
+}
+
 //attach event listener to play, next and previous
 const playBtn = document.querySelector("#play");
 playBtn.addEventListener("click", () => {
@@ -185,9 +266,9 @@ currentSong.addEventListener("ended", () => {
     if (playIcon) {
         // Change it to the Play icon (the triangle)
         playIcon.src = "play.svg"; 
-        console.log("Song ended: Icon changed to Play");
+        // console.log("Song ended: Icon changed to Play");
     } else {
-        console.log("Error: Could not find the play button image!");
+        // console.log("Error: Could not find the play button image!");
     }
 
     // 3. Reset the seekbar circle
@@ -253,18 +334,37 @@ document.querySelector(".volume input").addEventListener("input", (e) => {
         volIcon.src = "Volume-High.svg";
     }
 });
+const attachPlayListeners = () => {
+    Array.from(document.querySelector(".songlist").getElementsByTagName("li")).forEach(e => {
+        e.addEventListener("click", element => {
+            console.log("Playing song:", e.dataset.song);
+            playMusic(e.dataset.song); // Assuming you have a playMusic function
+        });
+    });
+}
+
 const updateSonglist = (songs) => {
-    let songUL = document.querySelector("#songList");
+    // 1. Use "." because it is a CLASS, not an ID
+    let songUL = document.querySelector(".songlist"); 
     
-    // 1. Clear the old list before adding new songs
+    if (!songUL) {
+        console.error("Could not find .songlist element in HTML");
+        return;
+    }
+
+    // 2. Clear the list
     songUL.innerHTML = ""; 
 
-    // 2. Loop through each song in the array
+    // 3. Handle the "empty array" issue (since your log showed songs: [])
+    if (!songs || songs.length === 0) {
+        songUL.innerHTML = `<div class="no-songs">No .mp3 files found in this folder!</div>`;
+        return;
+    }
+
+    // 4. Loop through songs if they exist
     songs.forEach(song => {
-        // Create a clean name for display
         let songName = song.replaceAll(".mp3", "").replaceAll("%20", " ");
         
-        // 3. Add a new list item for each song
         songUL.innerHTML += `
             <li data-song="${song}">
                 <div class="info">
@@ -278,9 +378,12 @@ const updateSonglist = (songs) => {
             </li>`;
     });
 
-    // 4. Attach click listeners to these new songs so they can play
-    attachPlayListeners();
+    // 5. Attach listeners (make sure this function exists!)
+    if (typeof attachPlayListeners === "function") {
+        attachPlayListeners();
+    }
 }
+
 
 // 1. Correct the class name (no dot)
 Array.from(document.getElementsByClassName("card")).forEach(e => {
@@ -288,12 +391,27 @@ Array.from(document.getElementsByClassName("card")).forEach(e => {
         // 2. Use currentTarget to always get the card's dataset
         const folder = event.currentTarget.dataset.folder;
         
-        console.log("Fetching songs from folder:", folder);
+        // console.log("Fetching songs from folder:", folder);
         
         // 3. Call your getSongs function
         songs = await getSongs(`songs/${folder}`);
         
         // 4. Important: Call your UI update function here!
-        updateSongList(); 
+        updateSonglist() 
+    });
+});
+Array.from(document.getElementsByClassName("card")).forEach(e => {
+    e.addEventListener("click", async (item) => {
+        // Use currentTarget to ensure you get the card, even if you click an image inside it
+        let folder = item.currentTarget.dataset.folder; 
+        // console.log(item.currentTarget);
+        // console.log(item.currentTarget.dataset.folder);
+        
+        // 1. Fetch the songs
+        songs = await getSongs(`${folder}`);
+        console.log(songs);
+        
+        // 2. YOU MUST CALL THE FUNCTION HERE to update the UI
+        updateSonglist(songs); 
     });
 });
